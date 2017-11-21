@@ -7,7 +7,7 @@ using System.Web;
 
 namespace cremeBrulee.Models
 {
-    [Table("tblInventario")]
+    [Table("tbl_Inventario")]
     public class Inventario
     {
         [Key]
@@ -15,10 +15,14 @@ namespace cremeBrulee.Models
         public int InventarioID { get; set; }
         public int ProductoID { get; set; }
         [Required]
-        private int Cantidad { get; set; }
+        [Column("Cantidad",TypeName="int")]
+        public int Cantidad { get; set; }
         [Required]
-        private double Precio { get; set; }
+        [Column("Precio",TypeName ="decimal")]
+        public decimal Precio { get; set; } 
+        
 
+        //Navigation Properties
         [ForeignKey("ProductoID")]
         public virtual Producto Producto { get; set; }
 

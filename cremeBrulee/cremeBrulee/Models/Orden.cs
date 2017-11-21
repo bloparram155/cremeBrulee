@@ -7,16 +7,19 @@ using System.Web;
 
 namespace cremeBrulee.Models
 {
-    [Table("tblOrden")]
+    [Table("tbl_Orden")]
     public class Orden
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]   
         public int OrdenID{ get; set; }
         public int CuentaID { get; set; }
         public int CarritoID { get; set; }
-        private DateTime FechaOrden { get; set; }
 
+        [Column("FechaOrden",TypeName ="datetime")]
+        public DateTime FechaOrden { get; set; }
+
+        //NavigationProperties  
         [ForeignKey("CarritoID")]
         public virtual Carrito Carrito{get;set;}
         [ForeignKey("CuentaID")]

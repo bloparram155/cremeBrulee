@@ -7,19 +7,28 @@ using System.Web;
 
 namespace cremeBrulee.Models
 {
-    [Table("tblCarrito")]
+    [Table("tbl_Carrito")]
     public class Carrito
     {
+        
+        public Carrito()
+        {
+            this.ListProducto = new HashSet<Producto>();
+        }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CarritoID { get; set; }
-        [ForeignKey("Cuenta")]
         public int CuentaID { get; set; }
-        private double SubTotal { get; set; }
-        private double Total { get; set; }
+        [Column("SubTotal", TypeName ="decimal")]
+        public decimal SubTotal { get; set; }
+        [Column("Total", TypeName = "decimal")]
+        public decimal Total { get; set; }
 
-
+        //Navigation Properties
         public virtual ICollection<Producto> ListProducto { get; set; }
+
+        [ForeignKey("CuentaID")]
         public virtual Cuenta Cuenta { get; set; }
 
     }

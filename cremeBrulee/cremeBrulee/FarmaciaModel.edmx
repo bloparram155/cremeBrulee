@@ -1,0 +1,472 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="LeonDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbl_Carrito">
+          <Key>
+            <PropertyRef Name="CarritoID" />
+          </Key>
+          <Property Name="CarritoID" Type="int" Nullable="false" />
+          <Property Name="CuentaID" Type="int" Nullable="false" />
+          <Property Name="SubTotal" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Total" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_Cuenta">
+          <Key>
+            <PropertyRef Name="CuentaID" />
+          </Key>
+          <Property Name="CuentaID" Type="int" Nullable="false" />
+          <Property Name="UsuarioID" Type="int" Nullable="false" />
+          <Property Name="CuentaVerificada" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_Direccion">
+          <Key>
+            <PropertyRef Name="DireccionID" />
+          </Key>
+          <Property Name="DireccionID" Type="int" Nullable="false" />
+          <Property Name="CuentaID" Type="int" Nullable="false" />
+          <Property Name="Colonia" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Calle" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Estado" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Ciudad" Type="varbinary" MaxLength="25" Nullable="false" />
+          <Property Name="CodigoPostal" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_Inventario">
+          <Key>
+            <PropertyRef Name="InventarioID" />
+          </Key>
+          <Property Name="InventarioID" Type="int" Nullable="false" />
+          <Property Name="ProductoID" Type="int" Nullable="false" />
+          <Property Name="Cantidad" Type="int" Nullable="false" />
+          <Property Name="Precio" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_Orden">
+          <Key>
+            <PropertyRef Name="OrdenID" />
+          </Key>
+          <Property Name="OrdenID" Type="int" Nullable="false" />
+          <Property Name="CuentaID" Type="int" Nullable="false" />
+          <Property Name="CarritoID" Type="int" Nullable="false" />
+          <Property Name="FechaOrden" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_Producto">
+          <Key>
+            <PropertyRef Name="ProductoID" />
+          </Key>
+          <Property Name="ProductoID" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Categoria" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Presentacion" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="CodigoProducto" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_Usuario">
+          <Key>
+            <PropertyRef Name="UsuarioID" />
+          </Key>
+          <Property Name="UsuarioID" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="TipoUsuario" Type="varchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_tbl_Carrito_tbl_Cuenta">
+          <End Role="tbl_Cuenta" Type="Self.tbl_Cuenta" Multiplicity="1" />
+          <End Role="tbl_Carrito" Type="Self.tbl_Carrito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Cuenta">
+              <PropertyRef Name="CuentaID" />
+            </Principal>
+            <Dependent Role="tbl_Carrito">
+              <PropertyRef Name="CuentaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Cuenta_tbl_Usuario">
+          <End Role="tbl_Usuario" Type="Self.tbl_Usuario" Multiplicity="1" />
+          <End Role="tbl_Cuenta" Type="Self.tbl_Cuenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Usuario">
+              <PropertyRef Name="UsuarioID" />
+            </Principal>
+            <Dependent Role="tbl_Cuenta">
+              <PropertyRef Name="UsuarioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Direccion_tbl_Cuenta">
+          <End Role="tbl_Cuenta" Type="Self.tbl_Cuenta" Multiplicity="1" />
+          <End Role="tbl_Direccion" Type="Self.tbl_Direccion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Cuenta">
+              <PropertyRef Name="CuentaID" />
+            </Principal>
+            <Dependent Role="tbl_Direccion">
+              <PropertyRef Name="CuentaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Inventario_tbl_Producto">
+          <End Role="tbl_Producto" Type="Self.tbl_Producto" Multiplicity="1" />
+          <End Role="tbl_Inventario" Type="Self.tbl_Inventario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Producto">
+              <PropertyRef Name="ProductoID" />
+            </Principal>
+            <Dependent Role="tbl_Inventario">
+              <PropertyRef Name="ProductoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Orden_tbl_Carrito">
+          <End Role="tbl_Carrito" Type="Self.tbl_Carrito" Multiplicity="1" />
+          <End Role="tbl_Orden" Type="Self.tbl_Orden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Carrito">
+              <PropertyRef Name="CarritoID" />
+            </Principal>
+            <Dependent Role="tbl_Orden">
+              <PropertyRef Name="CarritoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Orden_tbl_Cuenta">
+          <End Role="tbl_Cuenta" Type="Self.tbl_Cuenta" Multiplicity="1" />
+          <End Role="tbl_Orden" Type="Self.tbl_Orden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Cuenta">
+              <PropertyRef Name="CuentaID" />
+            </Principal>
+            <Dependent Role="tbl_Orden">
+              <PropertyRef Name="CuentaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LeonDbModelStoreContainer">
+          <EntitySet Name="tbl_Carrito" EntityType="Self.tbl_Carrito" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Cuenta" EntityType="Self.tbl_Cuenta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Direccion" EntityType="Self.tbl_Direccion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Inventario" EntityType="Self.tbl_Inventario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Orden" EntityType="Self.tbl_Orden" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Producto" EntityType="Self.tbl_Producto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Usuario" EntityType="Self.tbl_Usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tbl_Carrito_tbl_Cuenta" Association="Self.FK_tbl_Carrito_tbl_Cuenta">
+            <End Role="tbl_Cuenta" EntitySet="tbl_Cuenta" />
+            <End Role="tbl_Carrito" EntitySet="tbl_Carrito" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Cuenta_tbl_Usuario" Association="Self.FK_tbl_Cuenta_tbl_Usuario">
+            <End Role="tbl_Usuario" EntitySet="tbl_Usuario" />
+            <End Role="tbl_Cuenta" EntitySet="tbl_Cuenta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Direccion_tbl_Cuenta" Association="Self.FK_tbl_Direccion_tbl_Cuenta">
+            <End Role="tbl_Cuenta" EntitySet="tbl_Cuenta" />
+            <End Role="tbl_Direccion" EntitySet="tbl_Direccion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Inventario_tbl_Producto" Association="Self.FK_tbl_Inventario_tbl_Producto">
+            <End Role="tbl_Producto" EntitySet="tbl_Producto" />
+            <End Role="tbl_Inventario" EntitySet="tbl_Inventario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Orden_tbl_Carrito" Association="Self.FK_tbl_Orden_tbl_Carrito">
+            <End Role="tbl_Carrito" EntitySet="tbl_Carrito" />
+            <End Role="tbl_Orden" EntitySet="tbl_Orden" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Orden_tbl_Cuenta" Association="Self.FK_tbl_Orden_tbl_Cuenta">
+            <End Role="tbl_Cuenta" EntitySet="tbl_Cuenta" />
+            <End Role="tbl_Orden" EntitySet="tbl_Orden" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LeonDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tbl_Carrito">
+          <Key>
+            <PropertyRef Name="CarritoID" />
+          </Key>
+          <Property Name="CarritoID" Type="Int32" Nullable="false" />
+          <Property Name="CuentaID" Type="Int32" Nullable="false" />
+          <Property Name="SubTotal" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Total" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <NavigationProperty Name="tbl_Cuenta" Relationship="Self.FK_tbl_Carrito_tbl_Cuenta" FromRole="tbl_Carrito" ToRole="tbl_Cuenta" />
+          <NavigationProperty Name="tbl_Orden" Relationship="Self.FK_tbl_Orden_tbl_Carrito" FromRole="tbl_Carrito" ToRole="tbl_Orden" />
+        </EntityType>
+        <EntityType Name="tbl_Cuenta">
+          <Key>
+            <PropertyRef Name="CuentaID" />
+          </Key>
+          <Property Name="CuentaID" Type="Int32" Nullable="false" />
+          <Property Name="UsuarioID" Type="Int32" Nullable="false" />
+          <Property Name="CuentaVerificada" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="tbl_Carrito" Relationship="Self.FK_tbl_Carrito_tbl_Cuenta" FromRole="tbl_Cuenta" ToRole="tbl_Carrito" />
+          <NavigationProperty Name="tbl_Usuario" Relationship="Self.FK_tbl_Cuenta_tbl_Usuario" FromRole="tbl_Cuenta" ToRole="tbl_Usuario" />
+          <NavigationProperty Name="tbl_Direccion" Relationship="Self.FK_tbl_Direccion_tbl_Cuenta" FromRole="tbl_Cuenta" ToRole="tbl_Direccion" />
+          <NavigationProperty Name="tbl_Orden" Relationship="Self.FK_tbl_Orden_tbl_Cuenta" FromRole="tbl_Cuenta" ToRole="tbl_Orden" />
+        </EntityType>
+        <EntityType Name="tbl_Direccion">
+          <Key>
+            <PropertyRef Name="DireccionID" />
+          </Key>
+          <Property Name="DireccionID" Type="Int32" Nullable="false" />
+          <Property Name="CuentaID" Type="Int32" Nullable="false" />
+          <Property Name="Colonia" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Calle" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Estado" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Ciudad" Type="Binary" MaxLength="25" FixedLength="false" Nullable="false" />
+          <Property Name="CodigoPostal" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tbl_Cuenta" Relationship="Self.FK_tbl_Direccion_tbl_Cuenta" FromRole="tbl_Direccion" ToRole="tbl_Cuenta" />
+        </EntityType>
+        <EntityType Name="tbl_Inventario">
+          <Key>
+            <PropertyRef Name="InventarioID" />
+          </Key>
+          <Property Name="InventarioID" Type="Int32" Nullable="false" />
+          <Property Name="ProductoID" Type="Int32" Nullable="false" />
+          <Property Name="Cantidad" Type="Int32" Nullable="false" />
+          <Property Name="Precio" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <NavigationProperty Name="tbl_Producto" Relationship="Self.FK_tbl_Inventario_tbl_Producto" FromRole="tbl_Inventario" ToRole="tbl_Producto" />
+        </EntityType>
+        <EntityType Name="tbl_Orden">
+          <Key>
+            <PropertyRef Name="OrdenID" />
+          </Key>
+          <Property Name="OrdenID" Type="Int32" Nullable="false" />
+          <Property Name="CuentaID" Type="Int32" Nullable="false" />
+          <Property Name="CarritoID" Type="Int32" Nullable="false" />
+          <Property Name="FechaOrden" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="tbl_Carrito" Relationship="Self.FK_tbl_Orden_tbl_Carrito" FromRole="tbl_Orden" ToRole="tbl_Carrito" />
+          <NavigationProperty Name="tbl_Cuenta" Relationship="Self.FK_tbl_Orden_tbl_Cuenta" FromRole="tbl_Orden" ToRole="tbl_Cuenta" />
+        </EntityType>
+        <EntityType Name="tbl_Producto">
+          <Key>
+            <PropertyRef Name="ProductoID" />
+          </Key>
+          <Property Name="ProductoID" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Categoria" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Presentacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CodigoProducto" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tbl_Inventario" Relationship="Self.FK_tbl_Inventario_tbl_Producto" FromRole="tbl_Producto" ToRole="tbl_Inventario" />
+        </EntityType>
+        <EntityType Name="tbl_Usuario">
+          <Key>
+            <PropertyRef Name="UsuarioID" />
+          </Key>
+          <Property Name="UsuarioID" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TipoUsuario" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tbl_Cuenta" Relationship="Self.FK_tbl_Cuenta_tbl_Usuario" FromRole="tbl_Usuario" ToRole="tbl_Cuenta" />
+        </EntityType>
+        <Association Name="FK_tbl_Carrito_tbl_Cuenta">
+          <End Role="tbl_Cuenta" Type="Self.tbl_Cuenta" Multiplicity="1" />
+          <End Role="tbl_Carrito" Type="Self.tbl_Carrito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Cuenta">
+              <PropertyRef Name="CuentaID" />
+            </Principal>
+            <Dependent Role="tbl_Carrito">
+              <PropertyRef Name="CuentaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Orden_tbl_Carrito">
+          <End Role="tbl_Carrito" Type="Self.tbl_Carrito" Multiplicity="1" />
+          <End Role="tbl_Orden" Type="Self.tbl_Orden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Carrito">
+              <PropertyRef Name="CarritoID" />
+            </Principal>
+            <Dependent Role="tbl_Orden">
+              <PropertyRef Name="CarritoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Cuenta_tbl_Usuario">
+          <End Role="tbl_Usuario" Type="Self.tbl_Usuario" Multiplicity="1" />
+          <End Role="tbl_Cuenta" Type="Self.tbl_Cuenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Usuario">
+              <PropertyRef Name="UsuarioID" />
+            </Principal>
+            <Dependent Role="tbl_Cuenta">
+              <PropertyRef Name="UsuarioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Direccion_tbl_Cuenta">
+          <End Role="tbl_Cuenta" Type="Self.tbl_Cuenta" Multiplicity="1" />
+          <End Role="tbl_Direccion" Type="Self.tbl_Direccion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Cuenta">
+              <PropertyRef Name="CuentaID" />
+            </Principal>
+            <Dependent Role="tbl_Direccion">
+              <PropertyRef Name="CuentaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Orden_tbl_Cuenta">
+          <End Role="tbl_Cuenta" Type="Self.tbl_Cuenta" Multiplicity="1" />
+          <End Role="tbl_Orden" Type="Self.tbl_Orden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Cuenta">
+              <PropertyRef Name="CuentaID" />
+            </Principal>
+            <Dependent Role="tbl_Orden">
+              <PropertyRef Name="CuentaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Inventario_tbl_Producto">
+          <End Role="tbl_Producto" Type="Self.tbl_Producto" Multiplicity="1" />
+          <End Role="tbl_Inventario" Type="Self.tbl_Inventario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Producto">
+              <PropertyRef Name="ProductoID" />
+            </Principal>
+            <Dependent Role="tbl_Inventario">
+              <PropertyRef Name="ProductoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LeonDbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbl_Carrito" EntityType="Self.tbl_Carrito" />
+          <EntitySet Name="tbl_Cuenta" EntityType="Self.tbl_Cuenta" />
+          <EntitySet Name="tbl_Direccion" EntityType="Self.tbl_Direccion" />
+          <EntitySet Name="tbl_Inventario" EntityType="Self.tbl_Inventario" />
+          <EntitySet Name="tbl_Orden" EntityType="Self.tbl_Orden" />
+          <EntitySet Name="tbl_Producto" EntityType="Self.tbl_Producto" />
+          <EntitySet Name="tbl_Usuario" EntityType="Self.tbl_Usuario" />
+          <AssociationSet Name="FK_tbl_Carrito_tbl_Cuenta" Association="Self.FK_tbl_Carrito_tbl_Cuenta">
+            <End Role="tbl_Cuenta" EntitySet="tbl_Cuenta" />
+            <End Role="tbl_Carrito" EntitySet="tbl_Carrito" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Orden_tbl_Carrito" Association="Self.FK_tbl_Orden_tbl_Carrito">
+            <End Role="tbl_Carrito" EntitySet="tbl_Carrito" />
+            <End Role="tbl_Orden" EntitySet="tbl_Orden" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Cuenta_tbl_Usuario" Association="Self.FK_tbl_Cuenta_tbl_Usuario">
+            <End Role="tbl_Usuario" EntitySet="tbl_Usuario" />
+            <End Role="tbl_Cuenta" EntitySet="tbl_Cuenta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Direccion_tbl_Cuenta" Association="Self.FK_tbl_Direccion_tbl_Cuenta">
+            <End Role="tbl_Cuenta" EntitySet="tbl_Cuenta" />
+            <End Role="tbl_Direccion" EntitySet="tbl_Direccion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Orden_tbl_Cuenta" Association="Self.FK_tbl_Orden_tbl_Cuenta">
+            <End Role="tbl_Cuenta" EntitySet="tbl_Cuenta" />
+            <End Role="tbl_Orden" EntitySet="tbl_Orden" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Inventario_tbl_Producto" Association="Self.FK_tbl_Inventario_tbl_Producto">
+            <End Role="tbl_Producto" EntitySet="tbl_Producto" />
+            <End Role="tbl_Inventario" EntitySet="tbl_Inventario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="LeonDbModelStoreContainer" CdmEntityContainer="LeonDbEntities">
+          <EntitySetMapping Name="tbl_Carrito">
+            <EntityTypeMapping TypeName="LeonDbModel.tbl_Carrito">
+              <MappingFragment StoreEntitySet="tbl_Carrito">
+                <ScalarProperty Name="CarritoID" ColumnName="CarritoID" />
+                <ScalarProperty Name="CuentaID" ColumnName="CuentaID" />
+                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Cuenta">
+            <EntityTypeMapping TypeName="LeonDbModel.tbl_Cuenta">
+              <MappingFragment StoreEntitySet="tbl_Cuenta">
+                <ScalarProperty Name="CuentaID" ColumnName="CuentaID" />
+                <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
+                <ScalarProperty Name="CuentaVerificada" ColumnName="CuentaVerificada" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Direccion">
+            <EntityTypeMapping TypeName="LeonDbModel.tbl_Direccion">
+              <MappingFragment StoreEntitySet="tbl_Direccion">
+                <ScalarProperty Name="DireccionID" ColumnName="DireccionID" />
+                <ScalarProperty Name="CuentaID" ColumnName="CuentaID" />
+                <ScalarProperty Name="Colonia" ColumnName="Colonia" />
+                <ScalarProperty Name="Calle" ColumnName="Calle" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Ciudad" ColumnName="Ciudad" />
+                <ScalarProperty Name="CodigoPostal" ColumnName="CodigoPostal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Inventario">
+            <EntityTypeMapping TypeName="LeonDbModel.tbl_Inventario">
+              <MappingFragment StoreEntitySet="tbl_Inventario">
+                <ScalarProperty Name="InventarioID" ColumnName="InventarioID" />
+                <ScalarProperty Name="ProductoID" ColumnName="ProductoID" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Orden">
+            <EntityTypeMapping TypeName="LeonDbModel.tbl_Orden">
+              <MappingFragment StoreEntitySet="tbl_Orden">
+                <ScalarProperty Name="OrdenID" ColumnName="OrdenID" />
+                <ScalarProperty Name="CuentaID" ColumnName="CuentaID" />
+                <ScalarProperty Name="CarritoID" ColumnName="CarritoID" />
+                <ScalarProperty Name="FechaOrden" ColumnName="FechaOrden" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Producto">
+            <EntityTypeMapping TypeName="LeonDbModel.tbl_Producto">
+              <MappingFragment StoreEntitySet="tbl_Producto">
+                <ScalarProperty Name="ProductoID" ColumnName="ProductoID" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+                <ScalarProperty Name="Presentacion" ColumnName="Presentacion" />
+                <ScalarProperty Name="CodigoProducto" ColumnName="CodigoProducto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Usuario">
+            <EntityTypeMapping TypeName="LeonDbModel.tbl_Usuario">
+              <MappingFragment StoreEntitySet="tbl_Usuario">
+                <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="TipoUsuario" ColumnName="TipoUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

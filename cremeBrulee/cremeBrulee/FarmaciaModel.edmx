@@ -4,12 +4,12 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="LeonDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="FarmaciaDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="tbl_Carrito">
           <Key>
             <PropertyRef Name="CarritoID" />
           </Key>
-          <Property Name="CarritoID" Type="int" Nullable="false" />
+          <Property Name="CarritoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CuentaID" Type="int" Nullable="false" />
           <Property Name="SubTotal" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="Total" Type="decimal" Precision="18" Scale="2" Nullable="false" />
@@ -18,7 +18,7 @@
           <Key>
             <PropertyRef Name="CuentaID" />
           </Key>
-          <Property Name="CuentaID" Type="int" Nullable="false" />
+          <Property Name="CuentaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UsuarioID" Type="int" Nullable="false" />
           <Property Name="CuentaVerificada" Type="bit" Nullable="false" />
         </EntityType>
@@ -26,19 +26,19 @@
           <Key>
             <PropertyRef Name="DireccionID" />
           </Key>
-          <Property Name="DireccionID" Type="int" Nullable="false" />
+          <Property Name="DireccionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CuentaID" Type="int" Nullable="false" />
           <Property Name="Colonia" Type="varchar" MaxLength="25" Nullable="false" />
           <Property Name="Calle" Type="varchar" MaxLength="25" Nullable="false" />
           <Property Name="Estado" Type="varchar" MaxLength="25" Nullable="false" />
-          <Property Name="Ciudad" Type="varbinary" MaxLength="25" Nullable="false" />
+          <Property Name="Ciudad" Type="varchar" MaxLength="25" Nullable="false" />
           <Property Name="CodigoPostal" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="tbl_Inventario">
           <Key>
             <PropertyRef Name="InventarioID" />
           </Key>
-          <Property Name="InventarioID" Type="int" Nullable="false" />
+          <Property Name="InventarioID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ProductoID" Type="int" Nullable="false" />
           <Property Name="Cantidad" Type="int" Nullable="false" />
           <Property Name="Precio" Type="decimal" Precision="18" Scale="2" Nullable="false" />
@@ -47,7 +47,7 @@
           <Key>
             <PropertyRef Name="OrdenID" />
           </Key>
-          <Property Name="OrdenID" Type="int" Nullable="false" />
+          <Property Name="OrdenID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CuentaID" Type="int" Nullable="false" />
           <Property Name="CarritoID" Type="int" Nullable="false" />
           <Property Name="FechaOrden" Type="datetime" Nullable="false" />
@@ -56,31 +56,31 @@
           <Key>
             <PropertyRef Name="ProductoID" />
           </Key>
-          <Property Name="ProductoID" Type="int" Nullable="false" />
+          <Property Name="ProductoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="Categoria" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="Presentacion" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Presentacion" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="CodigoProducto" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="tbl_Usuario">
           <Key>
             <PropertyRef Name="UsuarioID" />
           </Key>
-          <Property Name="UsuarioID" Type="int" Nullable="false" />
-          <Property Name="Nombre" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="UsuarioID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Password" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="TipoUsuario" Type="varchar" MaxLength="15" Nullable="false" />
         </EntityType>
         <Association Name="FK_tbl_Carrito_tbl_Cuenta">
           <End Role="tbl_Cuenta" Type="Self.tbl_Cuenta" Multiplicity="1" />
-          <End Role="tbl_Carrito" Type="Self.tbl_Carrito" Multiplicity="*" />
+          <End Role="tbl_Carrito" Type="Self.tbl_Carrito" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="tbl_Cuenta">
               <PropertyRef Name="CuentaID" />
             </Principal>
             <Dependent Role="tbl_Carrito">
-              <PropertyRef Name="CuentaID" />
+              <PropertyRef Name="CarritoID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -144,7 +144,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="LeonDbModelStoreContainer">
+        <EntityContainer Name="FarmaciaDbModelStoreContainer">
           <EntitySet Name="tbl_Carrito" EntityType="Self.tbl_Carrito" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Cuenta" EntityType="Self.tbl_Cuenta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Direccion" EntityType="Self.tbl_Direccion" Schema="dbo" store:Type="Tables" />
@@ -181,12 +181,12 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="LeonDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="FarmaciaDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="tbl_Carrito">
           <Key>
             <PropertyRef Name="CarritoID" />
           </Key>
-          <Property Name="CarritoID" Type="Int32" Nullable="false" />
+          <Property Name="CarritoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CuentaID" Type="Int32" Nullable="false" />
           <Property Name="SubTotal" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="Total" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
@@ -197,7 +197,7 @@
           <Key>
             <PropertyRef Name="CuentaID" />
           </Key>
-          <Property Name="CuentaID" Type="Int32" Nullable="false" />
+          <Property Name="CuentaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UsuarioID" Type="Int32" Nullable="false" />
           <Property Name="CuentaVerificada" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="tbl_Carrito" Relationship="Self.FK_tbl_Carrito_tbl_Cuenta" FromRole="tbl_Cuenta" ToRole="tbl_Carrito" />
@@ -209,12 +209,12 @@
           <Key>
             <PropertyRef Name="DireccionID" />
           </Key>
-          <Property Name="DireccionID" Type="Int32" Nullable="false" />
+          <Property Name="DireccionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CuentaID" Type="Int32" Nullable="false" />
           <Property Name="Colonia" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Calle" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Estado" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Ciudad" Type="Binary" MaxLength="25" FixedLength="false" Nullable="false" />
+          <Property Name="Ciudad" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CodigoPostal" Type="Int32" Nullable="false" />
           <NavigationProperty Name="tbl_Cuenta" Relationship="Self.FK_tbl_Direccion_tbl_Cuenta" FromRole="tbl_Direccion" ToRole="tbl_Cuenta" />
         </EntityType>
@@ -222,7 +222,7 @@
           <Key>
             <PropertyRef Name="InventarioID" />
           </Key>
-          <Property Name="InventarioID" Type="Int32" Nullable="false" />
+          <Property Name="InventarioID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ProductoID" Type="Int32" Nullable="false" />
           <Property Name="Cantidad" Type="Int32" Nullable="false" />
           <Property Name="Precio" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
@@ -232,7 +232,7 @@
           <Key>
             <PropertyRef Name="OrdenID" />
           </Key>
-          <Property Name="OrdenID" Type="Int32" Nullable="false" />
+          <Property Name="OrdenID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CuentaID" Type="Int32" Nullable="false" />
           <Property Name="CarritoID" Type="Int32" Nullable="false" />
           <Property Name="FechaOrden" Type="DateTime" Nullable="false" Precision="3" />
@@ -243,10 +243,10 @@
           <Key>
             <PropertyRef Name="ProductoID" />
           </Key>
-          <Property Name="ProductoID" Type="Int32" Nullable="false" />
+          <Property Name="ProductoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Categoria" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Presentacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Presentacion" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CodigoProducto" Type="Int32" Nullable="false" />
           <NavigationProperty Name="tbl_Inventario" Relationship="Self.FK_tbl_Inventario_tbl_Producto" FromRole="tbl_Producto" ToRole="tbl_Inventario" />
         </EntityType>
@@ -254,22 +254,22 @@
           <Key>
             <PropertyRef Name="UsuarioID" />
           </Key>
-          <Property Name="UsuarioID" Type="Int32" Nullable="false" />
-          <Property Name="Nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UsuarioID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="TipoUsuario" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="tbl_Cuenta" Relationship="Self.FK_tbl_Cuenta_tbl_Usuario" FromRole="tbl_Usuario" ToRole="tbl_Cuenta" />
         </EntityType>
         <Association Name="FK_tbl_Carrito_tbl_Cuenta">
           <End Role="tbl_Cuenta" Type="Self.tbl_Cuenta" Multiplicity="1" />
-          <End Role="tbl_Carrito" Type="Self.tbl_Carrito" Multiplicity="*" />
+          <End Role="tbl_Carrito" Type="Self.tbl_Carrito" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="tbl_Cuenta">
               <PropertyRef Name="CuentaID" />
             </Principal>
             <Dependent Role="tbl_Carrito">
-              <PropertyRef Name="CuentaID" />
+              <PropertyRef Name="CarritoID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -333,7 +333,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="LeonDbEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="FarmaciaDbEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="tbl_Carrito" EntityType="Self.tbl_Carrito" />
           <EntitySet Name="tbl_Cuenta" EntityType="Self.tbl_Cuenta" />
           <EntitySet Name="tbl_Direccion" EntityType="Self.tbl_Direccion" />
@@ -371,9 +371,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="LeonDbModelStoreContainer" CdmEntityContainer="LeonDbEntities">
+        <EntityContainerMapping StorageEntityContainer="FarmaciaDbModelStoreContainer" CdmEntityContainer="FarmaciaDbEntities">
           <EntitySetMapping Name="tbl_Carrito">
-            <EntityTypeMapping TypeName="LeonDbModel.tbl_Carrito">
+            <EntityTypeMapping TypeName="FarmaciaDbModel.tbl_Carrito">
               <MappingFragment StoreEntitySet="tbl_Carrito">
                 <ScalarProperty Name="CarritoID" ColumnName="CarritoID" />
                 <ScalarProperty Name="CuentaID" ColumnName="CuentaID" />
@@ -383,7 +383,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbl_Cuenta">
-            <EntityTypeMapping TypeName="LeonDbModel.tbl_Cuenta">
+            <EntityTypeMapping TypeName="FarmaciaDbModel.tbl_Cuenta">
               <MappingFragment StoreEntitySet="tbl_Cuenta">
                 <ScalarProperty Name="CuentaID" ColumnName="CuentaID" />
                 <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
@@ -392,7 +392,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbl_Direccion">
-            <EntityTypeMapping TypeName="LeonDbModel.tbl_Direccion">
+            <EntityTypeMapping TypeName="FarmaciaDbModel.tbl_Direccion">
               <MappingFragment StoreEntitySet="tbl_Direccion">
                 <ScalarProperty Name="DireccionID" ColumnName="DireccionID" />
                 <ScalarProperty Name="CuentaID" ColumnName="CuentaID" />
@@ -405,7 +405,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbl_Inventario">
-            <EntityTypeMapping TypeName="LeonDbModel.tbl_Inventario">
+            <EntityTypeMapping TypeName="FarmaciaDbModel.tbl_Inventario">
               <MappingFragment StoreEntitySet="tbl_Inventario">
                 <ScalarProperty Name="InventarioID" ColumnName="InventarioID" />
                 <ScalarProperty Name="ProductoID" ColumnName="ProductoID" />
@@ -415,7 +415,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbl_Orden">
-            <EntityTypeMapping TypeName="LeonDbModel.tbl_Orden">
+            <EntityTypeMapping TypeName="FarmaciaDbModel.tbl_Orden">
               <MappingFragment StoreEntitySet="tbl_Orden">
                 <ScalarProperty Name="OrdenID" ColumnName="OrdenID" />
                 <ScalarProperty Name="CuentaID" ColumnName="CuentaID" />
@@ -425,7 +425,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbl_Producto">
-            <EntityTypeMapping TypeName="LeonDbModel.tbl_Producto">
+            <EntityTypeMapping TypeName="FarmaciaDbModel.tbl_Producto">
               <MappingFragment StoreEntitySet="tbl_Producto">
                 <ScalarProperty Name="ProductoID" ColumnName="ProductoID" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
@@ -436,7 +436,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbl_Usuario">
-            <EntityTypeMapping TypeName="LeonDbModel.tbl_Usuario">
+            <EntityTypeMapping TypeName="FarmaciaDbModel.tbl_Usuario">
               <MappingFragment StoreEntitySet="tbl_Usuario">
                 <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />

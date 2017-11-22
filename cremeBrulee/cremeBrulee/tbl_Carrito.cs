@@ -18,6 +18,7 @@ namespace cremeBrulee
         public tbl_Carrito()
         {
             this.tbl_Orden = new HashSet<tbl_Orden>();
+            this.tbl_Producto = new HashSet<tbl_Producto>();
         }
     
         public int CarritoID { get; set; }
@@ -28,5 +29,6 @@ namespace cremeBrulee
         public virtual tbl_Cuenta tbl_Cuenta { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_Orden> tbl_Orden { get; set; }
+        public virtual ICollection<tbl_Producto> tbl_Producto { get; set; }
     }
 }

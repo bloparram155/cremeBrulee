@@ -10,17 +10,17 @@ using cremeBrulee;
 
 namespace cremeBrulee.Controllers
 {
-    public class tbl_UsuarioController : Controller
+    public class UsuarioController : Controller
     {
-        private LeonDbEntities db = new LeonDbEntities();
+        private FarmaciaDbEntities db = new FarmaciaDbEntities();
 
-        // GET: tbl_Usuario
+        // GET: Usuario
         public ActionResult Index()
         {
             return View(db.tbl_Usuario.ToList());
         }
 
-        // GET: tbl_Usuario/Details/5
+        // GET: Usuario/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -35,13 +35,13 @@ namespace cremeBrulee.Controllers
             return View(tbl_Usuario);
         }
 
-        // GET: tbl_Usuario/Create
+        // GET: Usuario/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: tbl_Usuario/Create
+        // POST: Usuario/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -58,7 +58,7 @@ namespace cremeBrulee.Controllers
             return View(tbl_Usuario);
         }
 
-        // GET: tbl_Usuario/Edit/5
+        // GET: Usuario/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -73,7 +73,7 @@ namespace cremeBrulee.Controllers
             return View(tbl_Usuario);
         }
 
-        // POST: tbl_Usuario/Edit/5
+        // POST: Usuario/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -89,7 +89,7 @@ namespace cremeBrulee.Controllers
             return View(tbl_Usuario);
         }
 
-        // GET: tbl_Usuario/Delete/5
+        // GET: Usuario/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -104,7 +104,7 @@ namespace cremeBrulee.Controllers
             return View(tbl_Usuario);
         }
 
-        // POST: tbl_Usuario/Delete/5
+        // POST: Usuario/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

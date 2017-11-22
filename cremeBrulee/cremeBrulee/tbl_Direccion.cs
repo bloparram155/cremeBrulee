@@ -19,7 +19,7 @@ namespace cremeBrulee
         public string Colonia { get; set; }
         public string Calle { get; set; }
         public string Estado { get; set; }
-        public byte[] Ciudad { get; set; }
+        public string Ciudad { get; set; }
         public int CodigoPostal { get; set; }
     
         public virtual tbl_Cuenta tbl_Cuenta { get; set; }

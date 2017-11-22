@@ -13,10 +13,10 @@ namespace cremeBrulee
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class LeonDbEntities : DbContext
+    public partial class FarmaciaDbEntities : DbContext
     {
-        public LeonDbEntities()
-            : base("name=LeonDbEntities")
+        public FarmaciaDbEntities()
+            : base("name=FarmaciaDbEntities")
         {
         }
     

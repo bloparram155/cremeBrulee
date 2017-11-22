@@ -4,20 +4,20 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="3f4fef62e26a4cb29966b17c43f720b4" Name="Diagram1">
-        <EntityTypeShape EntityType="LeonDbModel.tbl_Carrito" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="LeonDbModel.tbl_Cuenta" Width="1.5" PointX="3" PointY="2.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="LeonDbModel.tbl_Direccion" Width="1.5" PointX="5.25" PointY="4" IsExpanded="true" />
-        <EntityTypeShape EntityType="LeonDbModel.tbl_Inventario" Width="1.5" PointX="10" PointY="3.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="LeonDbModel.tbl_Orden" Width="1.5" PointX="7.5" PointY="2" IsExpanded="true" />
-        <EntityTypeShape EntityType="LeonDbModel.tbl_Producto" Width="1.5" PointX="12.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="LeonDbModel.tbl_Usuario" Width="1.5" PointX="0.75" PointY="2.75" IsExpanded="true" />
-        <AssociationConnector Association="LeonDbModel.FK_tbl_Carrito_tbl_Cuenta" ManuallyRouted="false" />
-        <AssociationConnector Association="LeonDbModel.FK_tbl_Orden_tbl_Carrito" ManuallyRouted="false" />
-        <AssociationConnector Association="LeonDbModel.FK_tbl_Cuenta_tbl_Usuario" ManuallyRouted="false" />
-        <AssociationConnector Association="LeonDbModel.FK_tbl_Direccion_tbl_Cuenta" ManuallyRouted="false" />
-        <AssociationConnector Association="LeonDbModel.FK_tbl_Orden_tbl_Cuenta" ManuallyRouted="false" />
-        <AssociationConnector Association="LeonDbModel.FK_tbl_Inventario_tbl_Producto" ManuallyRouted="false" />
+      <Diagram DiagramId="95da6101601a46e4abf2330d6c5c742c" Name="Diagram1">
+        <EntityTypeShape EntityType="FarmaciaDbModel.tbl_Carrito" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="FarmaciaDbModel.tbl_Cuenta" Width="1.5" PointX="3" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="FarmaciaDbModel.tbl_Direccion" Width="1.5" PointX="5.25" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="FarmaciaDbModel.tbl_Inventario" Width="1.5" PointX="3" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="FarmaciaDbModel.tbl_Orden" Width="1.5" PointX="7.5" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="FarmaciaDbModel.tbl_Producto" Width="1.5" PointX="0.75" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="FarmaciaDbModel.tbl_Usuario" Width="1.5" PointX="0.75" PointY="2.75" IsExpanded="true" />
+        <AssociationConnector Association="FarmaciaDbModel.FK_tbl_Carrito_tbl_Cuenta" ManuallyRouted="false" />
+        <AssociationConnector Association="FarmaciaDbModel.FK_tbl_Orden_tbl_Carrito" ManuallyRouted="false" />
+        <AssociationConnector Association="FarmaciaDbModel.FK_tbl_Cuenta_tbl_Usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="FarmaciaDbModel.FK_tbl_Direccion_tbl_Cuenta" ManuallyRouted="false" />
+        <AssociationConnector Association="FarmaciaDbModel.FK_tbl_Orden_tbl_Cuenta" ManuallyRouted="false" />
+        <AssociationConnector Association="FarmaciaDbModel.FK_tbl_Inventario_tbl_Producto" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

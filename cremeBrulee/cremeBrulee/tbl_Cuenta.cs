@@ -17,7 +17,6 @@ namespace cremeBrulee
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tbl_Cuenta()
         {
-            this.tbl_Carrito = new HashSet<tbl_Carrito>();
             this.tbl_Direccion = new HashSet<tbl_Direccion>();
             this.tbl_Orden = new HashSet<tbl_Orden>();
         }
@@ -26,8 +25,7 @@ namespace cremeBrulee
         public int UsuarioID { get; set; }
         public bool CuentaVerificada { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbl_Carrito> tbl_Carrito { get; set; }
+        public virtual tbl_Carrito tbl_Carrito { get; set; }
         public virtual tbl_Usuario tbl_Usuario { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_Direccion> tbl_Direccion { get; set; }
